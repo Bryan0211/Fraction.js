@@ -360,19 +360,27 @@ function gcd(a, b) {
  * @param {number|Fraction=} a
  * @param {number=} b
  */
-export default function Fraction(a, b) {
+// 重構成class
+class Fraction {
 
-  parse(a, b);
+  constructor(a, b) {
+    parse(a, b);
 
-  if (this instanceof Fraction) {
-    a = gcd(P["d"], P["n"]); // Abuse variable a
-    this["s"] = P["s"];
-    this["n"] = P["n"] / a;
-    this["d"] = P["d"] / a;
-  } else {
-    return newFraction(P['s'] * P['n'], P['d']);
+    if (this instanceof Fraction) {
+      a = gcd(P["d"], P["n"]); // 使用变量 a
+      this["s"] = P["s"];
+      this["n"] = P["n"] / a;
+      this["d"] = P["d"] / a;
+    } else {
+      return newFraction(P['s'] * P['n'], P['d']);
+    }
   }
 }
+
+// 導出該類
+export default Fraction;
+
+
 
 var DivisionByZero = function() { return new Error("Division by Zero"); };
 var InvalidParameter = function() { return new Error("Invalid argument"); };
